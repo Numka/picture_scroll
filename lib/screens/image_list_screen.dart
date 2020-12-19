@@ -24,7 +24,10 @@ class ImageListScreen extends StatelessWidget {
           itemCount: state.images.length,
           itemBuilder: (BuildContext ctx, int index) => InkWell(
             onTap: () {
-              Navigator.of(ctx).pushNamed(ImageDetailScreen.routeName);
+              Navigator.of(ctx).pushNamed(
+                ImageDetailScreen.routeName,
+                arguments: state.images[index].id,
+              );
             },
             child: Card(
               shape: RoundedRectangleBorder(
@@ -48,10 +51,14 @@ class ImageListScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.favorite_border),
+                          icon: Icon(
+                            Icons.favorite_border,
+                          ),
                           onPressed: () {},
                         ),
-                        Text(state.images[index].title),
+                        Text(
+                          state.images[index].title,
+                        ),
                       ],
                     ),
                   ),
