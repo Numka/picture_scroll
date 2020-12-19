@@ -52,7 +52,9 @@ class ImageListScreen extends StatelessWidget {
                       children: [
                         IconButton(
                           icon: Icon(
-                            Icons.favorite_border,
+                            state.images[index].isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
                           ),
                           onPressed: () {},
                         ),

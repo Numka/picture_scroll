@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:picture_scroll/redux/actions.dart';
 import 'package:picture_scroll/redux/store.dart';
 
 class ImageDetailScreen extends StatelessWidget {
@@ -39,10 +40,18 @@ class ImageDetailScreen extends StatelessWidget {
                     children: [
                       IconButton(
                         icon: Icon(
-                          Icons.favorite_border,
+                          loadedImage.isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
                           size: 30,
                         ),
-                        onPressed: () {},
+                        onPressed: () =>
+                            StoreProvider.of<AppState>(context).dispatch(
+                          ToggleFavorite(
+                            loadedImage.id,
+                            loadedImage.isFavorite,
+                          ),
+                        ),
                       ),
                       Text(
                         loadedImage.title,
