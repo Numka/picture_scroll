@@ -8,11 +8,13 @@ import './screens/image_list_screen.dart';
 
 import './redux/store.dart';
 import './redux/reducers.dart';
+import './redux/middleware.dart';
 
 void main() {
   Store<AppState> _store = Store<AppState>(
     reducers,
     initialState: AppState.initial(),
+    middleware: [appStateMiddleware],
   );
   runApp(MyApp(store: _store));
 }
