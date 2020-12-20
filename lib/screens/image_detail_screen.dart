@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:picture_scroll/redux/actions.dart';
-import 'package:picture_scroll/redux/store.dart';
+import '../redux/actions.dart';
+import '../redux/store.dart';
 
 class ImageDetailScreen extends StatelessWidget {
   static const routeName = '/image-detail';

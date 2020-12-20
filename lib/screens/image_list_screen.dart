@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import 'image_detail_screen.dart';
-
+import '../redux/actions.dart';
 import '../redux/store.dart';
+import 'image_detail_screen.dart';
 
 class ImageListScreen extends StatelessWidget {
   // final String imageSrc =
@@ -56,7 +56,13 @@ class ImageListScreen extends StatelessWidget {
                                 ? Icons.favorite
                                 : Icons.favorite_border,
                           ),
-                          onPressed: () {},
+                          onPressed: () =>
+                              StoreProvider.of<AppState>(context).dispatch(
+                            ToggleFavorite(
+                              state.images[index].id,
+                              state.images[index].isFavorite,
+                            ),
+                          ),
                         ),
                         Text(
                           state.images[index].title,
