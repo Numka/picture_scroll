@@ -4,9 +4,13 @@ import '../models/image_item.dart';
 
 class AppState {
   List<ImageItem> images;
+  bool isFetching;
+  Exception error;
 
   AppState({
     this.images,
+    this.isFetching,
+    this.error,
   });
 
   AppState.copyWith({
@@ -17,6 +21,7 @@ class AppState {
   }
 
   AppState.initial() {
+    //https://unsplash.com/photos/yC-Yzbqy7PY
     this.images = [
       ImageItem(
         id: 'img1',
@@ -54,5 +59,7 @@ class AppState {
         isFavorite: false,
       ),
     ];
+    this.isFetching = false;
+    this.error = null;
   }
 }

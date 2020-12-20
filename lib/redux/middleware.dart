@@ -1,8 +1,11 @@
-import 'package:picture_scroll/models/image_item.dart';
 import 'package:redux/redux.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:io';
 
 import 'store.dart';
 import 'actions.dart';
+import '../models/image_item.dart';
 
 void appStateMiddleware(
   Store<AppState> store,
@@ -28,6 +31,47 @@ void appStateMiddleware(
     );
 
     store.dispatch(UpdateFavorite(imageList));
+  }
+
+  next(action);
+}
+
+void fetchImagesMiddleware(
+  Store<AppState> store,
+  dynamic action,
+  NextDispatcher next,
+) async {
+  if (action is FetchImages) {
+    //final fetchUrl = 'https://picsum.photos/v2/list';
+    var url = 'https://api.unsplash.com/photos';
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              '7lwjXNsrx2zYwoV-V-8VNoCaaNOiB8pS_6LqNJc21qc'
+        },
+      );
+      final extractedImages = json.decode(response.body);
+
+      print(extractedImages[0]);
+
+      List<ImageItem<dynamic>> imageList = store.state.images;
+
+      for (var image in extractedImages) {
+        imageList.add(ImageItem(
+          id: image['id'],
+          title: image['author'],
+          imageUrl: image['url'],
+          isFavorite: false,
+        ));
+      }
+      store.dispatch(FetchImagesSucceded(imageList));
+    } catch (error) {
+      throw error;
+      //store.dispatch(FetchImagesFailed(error));
+    }
   }
 
   next(action);

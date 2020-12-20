@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:picture_scroll/redux/actions.dart';
 
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -14,7 +15,10 @@ void main() {
   Store<AppState> _store = Store<AppState>(
     reducers,
     initialState: AppState.initial(),
-    middleware: [appStateMiddleware],
+    middleware: [
+      fetchImagesMiddleware,
+      appStateMiddleware,
+    ],
   );
   runApp(MyApp(store: _store));
 }
@@ -26,6 +30,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    store.dispatch(FetchImages());
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
