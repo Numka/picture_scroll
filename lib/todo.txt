@@ -1,0 +1,8 @@
+Solve the problems as they arise.
+
+1. I want to get a list of images from unsplash.
+    Done!
+2. I want to transform the data that I get into a list of images that I can add to the existing list of images
+    Done!
+3. I want to add 'author' prefix to images on the main list and description inside.
+4. I want to add infinite pagination. When we reach the end of the screen we load the next 'page'.

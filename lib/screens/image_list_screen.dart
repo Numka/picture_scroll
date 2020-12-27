@@ -5,9 +5,44 @@ import '../redux/actions.dart';
 import '../redux/store.dart';
 import 'image_detail_screen.dart';
 
-class ImageListScreen extends StatelessWidget {
+class ImageListScreen extends StatefulWidget {
   // final String imageSrc =
   //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzMjEx-ngHL_oeR54yKispWYWKT3mpkKi6Sg&usqp=CAU';
+
+  //
+
+  // _scrollController
+  // ..addListener(() {
+  //   if (_scrollController.position.pixels ==
+  //       _scrollController.position.maxScrollExtent) {
+  //   }
+  // });
+
+  @override
+  _ImageListScreenState createState() => _ImageListScreenState();
+}
+
+class _ImageListScreenState extends State<ImageListScreen> {
+  ScrollController _scrollController = new ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        final store = StoreProvider.of<AppState>(context);
+        store.dispatch(FetchImages(store.state.pageNumber));
+        store.dispatch(NextPage);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +56,7 @@ class ImageListScreen extends StatelessWidget {
       body: StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         builder: (context, state) => ListView.builder(
+          controller: _scrollController,
           itemCount: state.images.length,
           itemBuilder: (BuildContext ctx, int index) => InkWell(
             onTap: () {

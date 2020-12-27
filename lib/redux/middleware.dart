@@ -33,6 +33,11 @@ void appStateMiddleware(
     store.dispatch(UpdateFavorite(imageList));
   }
 
+  if (action is NextPage) {
+    var nextPageNumber = store.state.pageNumber + 1;
+    store.dispatch(UpdatePageNumber(nextPageNumber));
+  }
+
   next(action);
 }
 
@@ -43,34 +48,36 @@ void fetchImagesMiddleware(
 ) async {
   if (action is FetchImages) {
     //final fetchUrl = 'https://picsum.photos/v2/list';
-    var url = 'https://api.unsplash.com/photos';
+    print(action.pageNumber);
+    var url = 'https://api.unsplash.com/photos?page=${action.pageNumber}';
 
     try {
       final response = await http.get(
         url,
         headers: {
           HttpHeaders.authorizationHeader:
-              '7lwjXNsrx2zYwoV-V-8VNoCaaNOiB8pS_6LqNJc21qc'
+              'Client-ID 7lwjXNsrx2zYwoV-V-8VNoCaaNOiB8pS_6LqNJc21qc'
         },
       );
-      final extractedImages = json.decode(response.body);
+      print(json.decode(response.body));
+      var extractedImages = json.decode(response.body) as List<dynamic>;
 
-      print(extractedImages[0]);
+      //print('print ${extractedImages[0]}');
 
       List<ImageItem<dynamic>> imageList = store.state.images;
-
       for (var image in extractedImages) {
         imageList.add(ImageItem(
           id: image['id'],
-          title: image['author'],
-          imageUrl: image['url'],
+          title: image['user']['name'],
+          imageUrl: image['urls']['small'],
           isFavorite: false,
         ));
       }
+      print('length ${imageList.length}');
       store.dispatch(FetchImagesSucceded(imageList));
     } catch (error) {
-      throw error;
-      //store.dispatch(FetchImagesFailed(error));
+      //throw error;
+      store.dispatch(FetchImagesFailed(error));
     }
   }
 

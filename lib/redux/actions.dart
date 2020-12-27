@@ -20,7 +20,13 @@ class UpdateFavorite extends Action {
   );
 }
 
-class FetchImages extends Action {}
+class FetchImages extends Action {
+  final int pageNumber;
+
+  FetchImages(
+    this.pageNumber,
+  );
+}
 
 class FetchImagesSucceded extends Action {
   final List<ImageItem> fetchedImages;
@@ -35,5 +41,15 @@ class FetchImagesFailed extends Action {
 
   FetchImagesFailed(
     this.error,
+  );
+}
+
+class NextPage extends Action {}
+
+class UpdatePageNumber extends Action {
+  final int pageNumber;
+
+  UpdatePageNumber(
+    this.pageNumber,
   );
 }

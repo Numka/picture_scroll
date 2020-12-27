@@ -30,3 +30,7 @@ AppState reducers(AppState prevState, dynamic action) {
     );
   }
 }
+
+// else if (action is UpdatePageNumber) {
+//     return AppState(pageNumber: action.pageNumber);
+//   }

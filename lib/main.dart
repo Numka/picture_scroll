@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    store.dispatch(FetchImages());
+    store.dispatch(FetchImages(store.state.pageNumber));
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
