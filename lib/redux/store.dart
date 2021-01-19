@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import '../models/image_item.dart';
 
 class AppState {
@@ -7,17 +8,25 @@ class AppState {
   int pageNumber;
 
   AppState({
-    this.images,
-    this.isFetching,
-    this.error,
-    this.pageNumber,
+    @required this.images,
+    @required this.isFetching,
+    @required this.error,
+    @required this.pageNumber,
   });
 
-  AppState.copyWith({
+  AppState copyWith({
     AppState prev,
     List<ImageItem> images,
+    bool isFetching,
+    Exception error,
+    int pageNumber,
   }) {
-    this.images = images ?? prev.images;
+    return AppState(
+      images: images ?? this.images,
+      isFetching: isFetching ?? this.isFetching,
+      error: error ?? this.error,
+      pageNumber: pageNumber ?? this.pageNumber,
+    );
   }
 
   AppState.initial() {

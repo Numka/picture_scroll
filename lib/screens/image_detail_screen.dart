@@ -16,7 +16,8 @@ class ImageDetailScreen extends StatelessWidget {
         var loadedImage = state.images.firstWhere((el) => el.id == imageId);
         return Scaffold(
             appBar: AppBar(
-              title: Text('${loadedImage.title}'),
+              title: Text(
+                  'Author - ${loadedImage.title.length >= 20 ? loadedImage.title.substring(0, 20) + '...' : loadedImage.title}'),
             ),
             body: Column(
               children: [
@@ -54,10 +55,12 @@ class ImageDetailScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text(
-                        loadedImage.title,
-                        style: TextStyle(
-                          fontSize: 24,
+                      Flexible(
+                        child: Text(
+                          'By ${loadedImage.title}',
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
                         ),
                       ),
                     ],

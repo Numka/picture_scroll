@@ -42,61 +42,73 @@ class _ImageListScreenState extends State<ImageListScreen> {
       ),
       body: StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
-        builder: (context, state) => ListView.builder(
-          controller: _scrollController,
-          itemCount: state.images.length,
-          itemBuilder: (BuildContext ctx, int index) => InkWell(
-            onTap: () {
-              Navigator.of(ctx).pushNamed(
-                ImageDetailScreen.routeName,
-                arguments: state.images[index].id,
-              );
-            },
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              elevation: 5,
-              margin: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  ClipRRect(
+        builder: (context, state) => Stack(
+          children: [
+            ListView.builder(
+              controller: _scrollController,
+              itemCount: state.images.length,
+              itemBuilder: (BuildContext ctx, int index) => InkWell(
+                onTap: () {
+                  Navigator.of(ctx).pushNamed(
+                    ImageDetailScreen.routeName,
+                    arguments: state.images[index].id,
+                  );
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
-                    child: Image.network(
-                      state.images[index].imageUrl,
-                      height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            state.images[index].isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                          ),
-                          onPressed: () =>
-                              StoreProvider.of<AppState>(context).dispatch(
-                            ToggleFavorite(
-                              state.images[index].id,
-                              state.images[index].isFavorite,
+                  elevation: 5,
+                  margin: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.network(
+                          state.images[index].imageUrl,
+                          height: 200,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                state.images[index].isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                              ),
+                              onPressed: () =>
+                                  StoreProvider.of<AppState>(context).dispatch(
+                                ToggleFavorite(
+                                  state.images[index].id,
+                                  state.images[index].isFavorite,
+                                ),
+                              ),
                             ),
-                          ),
+                            Text(
+                              'Author: ${state.images[index].title}',
+                            ),
+                          ],
                         ),
-                        Text(
-                          state.images[index].title,
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
+            state.isFetching
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SizedBox(
+                    width: 0,
+                    height: 0,
+                  ),
+          ],
         ),
       ),
     );

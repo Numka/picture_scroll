@@ -28,13 +28,13 @@ class FetchImages extends Action {
   );
 }
 
+class FetchingImages extends Action {}
+
 class FetchImagesSucceded extends Action {
   final List<ImageItem> fetchedImages;
-  final int nextPage;
 
   FetchImagesSucceded(
     this.fetchedImages,
-    this.nextPage,
   );
 }
 

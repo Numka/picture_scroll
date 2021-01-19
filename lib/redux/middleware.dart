@@ -46,6 +46,7 @@ void fetchImagesMiddleware(
     var url = 'https://api.unsplash.com/photos?page=${action.pageNumber}';
 
     try {
+      store.dispatch(FetchingImages());
       final response = await http.get(
         url,
         headers: {
@@ -64,8 +65,7 @@ void fetchImagesMiddleware(
           isFavorite: false,
         ));
       }
-      store
-          .dispatch(FetchImagesSucceded(imageList, store.state.pageNumber + 1));
+      store.dispatch(FetchImagesSucceded(imageList));
     } catch (error) {
       store.dispatch(FetchImagesFailed(error));
     }
