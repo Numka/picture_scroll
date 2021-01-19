@@ -5,4 +5,11 @@ Solve the problems as they arise.
 2. I want to transform the data that I get into a list of images that I can add to the existing list of images
     Done!
 3. I want to add 'author' prefix to images on the main list and description inside.
+    Later in polishing stage
 4. I want to add infinite pagination. When we reach the end of the screen we load the next 'page'.
+    Done!
+
+Main functionality is complete. Now I want to polish this app.
+
+1. I want a progress indicator whenever I fetch something.
+2. I want a 3rd issue in previous block to be completed.

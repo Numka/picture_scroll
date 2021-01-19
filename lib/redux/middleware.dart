@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'store.dart';
 import 'actions.dart';
+
 import '../models/image_item.dart';
 
 void appStateMiddleware(
@@ -33,11 +34,6 @@ void appStateMiddleware(
     store.dispatch(UpdateFavorite(imageList));
   }
 
-  if (action is NextPage) {
-    var nextPageNumber = store.state.pageNumber + 1;
-    store.dispatch(UpdatePageNumber(nextPageNumber));
-  }
-
   next(action);
 }
 
@@ -47,8 +43,6 @@ void fetchImagesMiddleware(
   NextDispatcher next,
 ) async {
   if (action is FetchImages) {
-    //final fetchUrl = 'https://picsum.photos/v2/list';
-    print(action.pageNumber);
     var url = 'https://api.unsplash.com/photos?page=${action.pageNumber}';
 
     try {
@@ -59,10 +53,7 @@ void fetchImagesMiddleware(
               'Client-ID 7lwjXNsrx2zYwoV-V-8VNoCaaNOiB8pS_6LqNJc21qc'
         },
       );
-      print(json.decode(response.body));
       var extractedImages = json.decode(response.body) as List<dynamic>;
-
-      //print('print ${extractedImages[0]}');
 
       List<ImageItem<dynamic>> imageList = store.state.images;
       for (var image in extractedImages) {
@@ -73,10 +64,9 @@ void fetchImagesMiddleware(
           isFavorite: false,
         ));
       }
-      print('length ${imageList.length}');
-      store.dispatch(FetchImagesSucceded(imageList));
+      store
+          .dispatch(FetchImagesSucceded(imageList, store.state.pageNumber + 1));
     } catch (error) {
-      //throw error;
       store.dispatch(FetchImagesFailed(error));
     }
   }

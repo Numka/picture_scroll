@@ -3,21 +3,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 import '../redux/actions.dart';
 import '../redux/store.dart';
+
 import 'image_detail_screen.dart';
 
 class ImageListScreen extends StatefulWidget {
-  // final String imageSrc =
-  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzMjEx-ngHL_oeR54yKispWYWKT3mpkKi6Sg&usqp=CAU';
-
-  //
-
-  // _scrollController
-  // ..addListener(() {
-  //   if (_scrollController.position.pixels ==
-  //       _scrollController.position.maxScrollExtent) {
-  //   }
-  // });
-
   @override
   _ImageListScreenState createState() => _ImageListScreenState();
 }
@@ -33,7 +22,6 @@ class _ImageListScreenState extends State<ImageListScreen> {
           _scrollController.position.maxScrollExtent) {
         final store = StoreProvider.of<AppState>(context);
         store.dispatch(FetchImages(store.state.pageNumber));
-        store.dispatch(NextPage);
       }
     });
   }
@@ -46,7 +34,6 @@ class _ImageListScreenState extends State<ImageListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -115,24 +102,3 @@ class _ImageListScreenState extends State<ImageListScreen> {
     );
   }
 }
-
-// Stack(
-//   children: [
-//     Positioned(
-//       bottom: 20,
-//       left: 5,
-//       child: Container(
-//         width: 200,
-//         color: Colors.black54,
-//         padding: const EdgeInsets.all(5),
-//         child: Text(
-//           'Some text',
-//           textAlign: TextAlign.center,
-//           style: TextStyle(
-//             fontSize: 18,
-//             color: Colors.white,
-//           ),
-//         ),
-//       ),
-//     ),
-//   ],

@@ -30,9 +30,11 @@ class FetchImages extends Action {
 
 class FetchImagesSucceded extends Action {
   final List<ImageItem> fetchedImages;
+  final int nextPage;
 
   FetchImagesSucceded(
     this.fetchedImages,
+    this.nextPage,
   );
 }
 
@@ -41,15 +43,5 @@ class FetchImagesFailed extends Action {
 
   FetchImagesFailed(
     this.error,
-  );
-}
-
-class NextPage extends Action {}
-
-class UpdatePageNumber extends Action {
-  final int pageNumber;
-
-  UpdatePageNumber(
-    this.pageNumber,
   );
 }
