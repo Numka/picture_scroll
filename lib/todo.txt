@@ -13,3 +13,13 @@ Main functionality is complete. Now I want to polish this app.
 
 1. I want a progress indicator whenever I fetch something.
 2. I want a 3rd issue in previous block to be completed.
+
+
+Persistance with LocalStorage:
+
+1. Create a favoriteIdList property on store. It will hold ids of the favorited items.
+    done 
+2. When we toggleFavorite we add id to the list of liked items. If it's already there we remove it. 
+    done 1/2
+3. The isFavorite property will be deprecated. I will check if the id is in the favoriteIdList with indexWhere and 'str' == 'str' to determine if the heart should be filled.
+

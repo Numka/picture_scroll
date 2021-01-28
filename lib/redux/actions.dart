@@ -14,10 +14,12 @@ class ToggleFavorite extends Action {
 
 class UpdateFavorite extends Action {
   final List<ImageItem> imageList;
+  final List<String> favoriteIdList;
 
-  UpdateFavorite(
+  UpdateFavorite({
     this.imageList,
-  );
+    this.favoriteIdList,
+  });
 }
 
 class FetchImages extends Action {

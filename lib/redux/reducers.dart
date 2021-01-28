@@ -3,7 +3,10 @@ import 'store.dart';
 
 AppState reducers(AppState prevState, dynamic action) {
   if (action is UpdateFavorite) {
-    return prevState.copyWith();
+    print(action.favoriteIdList);
+    return prevState.copyWith(
+      favoriteIdList: action.favoriteIdList,
+    );
   } else if (action is FetchingImages) {
     return prevState.copyWith(
       isFetching: true,

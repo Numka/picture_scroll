@@ -6,12 +6,14 @@ class AppState {
   bool isFetching;
   Exception error;
   int pageNumber;
+  List<String> favoriteIdList;
 
   AppState({
     @required this.images,
     @required this.isFetching,
     @required this.error,
     @required this.pageNumber,
+    @required this.favoriteIdList,
   });
 
   AppState copyWith({
@@ -20,12 +22,14 @@ class AppState {
     bool isFetching,
     Exception error,
     int pageNumber,
+    List<String> favoriteIdList,
   }) {
     return AppState(
       images: images ?? this.images,
       isFetching: isFetching ?? this.isFetching,
       error: error ?? this.error,
       pageNumber: pageNumber ?? this.pageNumber,
+      favoriteIdList: favoriteIdList ?? this.favoriteIdList,
     );
   }
 
@@ -34,5 +38,6 @@ class AppState {
     this.isFetching = false;
     this.error = null;
     this.pageNumber = 1;
+    this.favoriteIdList = [];
   }
 }

@@ -31,7 +31,18 @@ void appStateMiddleware(
       isFavorite: !favoriteStatus,
     );
 
-    store.dispatch(UpdateFavorite(imageList));
+    var newFavoriteIdList = store.state.favoriteIdList;
+
+    if (newFavoriteIdList.indexWhere((id) => id == imageId) < 0) {
+      newFavoriteIdList.add(imageId);
+    } else {
+      newFavoriteIdList.removeWhere((id) => id == imageId);
+    }
+
+    store.dispatch(UpdateFavorite(
+      imageList: imageList,
+      favoriteIdList: newFavoriteIdList,
+    ));
   }
 
   next(action);

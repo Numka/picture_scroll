@@ -42,7 +42,9 @@ class ImageDetailScreen extends StatelessWidget {
                     children: [
                       IconButton(
                         icon: Icon(
-                          loadedImage.isFavorite
+                          state.favoriteIdList.indexWhere(
+                                      (idStr) => loadedImage.id == idStr) >
+                                  -1
                               ? Icons.favorite
                               : Icons.favorite_border,
                           size: 30,

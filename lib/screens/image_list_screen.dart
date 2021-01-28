@@ -77,7 +77,9 @@ class _ImageListScreenState extends State<ImageListScreen> {
                           children: [
                             IconButton(
                               icon: Icon(
-                                state.images[index].isFavorite
+                                state.favoriteIdList.indexWhere((idStr) =>
+                                            state.images[index].id == idStr) >
+                                        -1
                                     ? Icons.favorite
                                     : Icons.favorite_border,
                               ),
