@@ -1,5 +1,6 @@
 import 'package:redux/redux.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -12,8 +13,9 @@ void appStateMiddleware(
   Store<AppState> store,
   dynamic action,
   NextDispatcher next,
-) {
+) async {
   if (action is ToggleFavorite) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     //List<Object> imageList = store.state.images;
     var imageId = action.id;
     var favoriteStatus = action.isFavorite;
@@ -31,6 +33,8 @@ void appStateMiddleware(
       isFavorite: !favoriteStatus,
     );
 
+    // below is new implementation
+
     var newFavoriteIdList = store.state.favoriteIdList;
 
     if (newFavoriteIdList.indexWhere((id) => id == imageId) < 0) {
@@ -38,6 +42,8 @@ void appStateMiddleware(
     } else {
       newFavoriteIdList.removeWhere((id) => id == imageId);
     }
+
+    await prefs.setStringList('favIdList', newFavoriteIdList);
 
     store.dispatch(UpdateFavorite(
       imageList: imageList,

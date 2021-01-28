@@ -33,11 +33,11 @@ class AppState {
     );
   }
 
-  AppState.initial() {
+  AppState.initial(favIdList) {
     this.images = [];
     this.isFetching = false;
     this.error = null;
     this.pageNumber = 1;
-    this.favoriteIdList = [];
+    this.favoriteIdList = favIdList;
   }
 }

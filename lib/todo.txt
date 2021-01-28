@@ -20,6 +20,13 @@ Persistance with LocalStorage:
 1. Create a favoriteIdList property on store. It will hold ids of the favorited items.
     done 
 2. When we toggleFavorite we add id to the list of liked items. If it's already there we remove it. 
-    done 1/2
+    done 
 3. The isFavorite property will be deprecated. I will check if the id is in the favoriteIdList with indexWhere and 'str' == 'str' to determine if the heart should be filled.
+    done
 
+My idea, lets see if it works.
+1. I import LocalStorage in middleware and add/delete items there.
+2. I import LocalStorage in the store and set initial for favoriteIdList as a getter from LocalStorage
+
+LocalStorage doesnt work outside widget tree =\
+So I can't set things or delete them in middleware

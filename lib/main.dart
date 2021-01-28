@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:picture_scroll/redux/actions.dart';
 
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './screens/image_detail_screen.dart';
 import './screens/image_list_screen.dart';
@@ -10,11 +10,16 @@ import './screens/image_list_screen.dart';
 import './redux/store.dart';
 import './redux/reducers.dart';
 import './redux/middleware.dart';
+import './redux/actions.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<String> favIdList = prefs.getStringList('favIdList') ?? [];
+
   Store<AppState> _store = Store<AppState>(
     reducers,
-    initialState: AppState.initial(),
+    initialState: AppState.initial(favIdList),
     middleware: [
       fetchImagesMiddleware,
       appStateMiddleware,
